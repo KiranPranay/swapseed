@@ -1,0 +1,6 @@
+cv
+numpy
+insightface
+onnxruntime
+matplotlib
+gdown
