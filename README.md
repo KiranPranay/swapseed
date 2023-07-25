@@ -2,6 +2,10 @@
 
 This project demonstrates face swapping using the InsightFace library and ONNX model. It allows you to swap faces between two images or even swap faces within the same image.
 
+<p align="center">
+<img src="images/result.png" width="700px" alt="Face Swap Result">
+</p>
+
 ## Installation
 
 1. Clone the repository:
@@ -32,11 +36,11 @@ You can use these functions in your Python scripts or Jupyter notebooks.
 ```python
 import cv2
 import matplotlib.pyplot as plt
-from face_swap import swap_n_show, swap_n_show_same_img
+from faceswap import swap_n_show, swap_n_show_same_img
 
 # Load images
-img1_fn = 'path/to/your/image1.jpg'
-img2_fn = 'path/to/your/image2.jpg'
+img1_fn = 'images/bramhi.jpg'
+img2_fn = 'images/modi.jpg'
 
 # Swap faces between two images
 swap_n_show(img1_fn, img2_fn, app, swapper)
