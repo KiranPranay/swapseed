@@ -29,6 +29,8 @@ pip install requirements.txt
 
 - swap_n_show_same_img(img1_fn, app, swapper, plot_before=True, plot_after=True): This function swaps faces within the same image.
 
+- swap_face_single(img1_fn, img2_fn, app, swapper): This function adds face from the source image to the target image and saves in output/ folder.
+
 You can use these functions in your Python scripts or Jupyter notebooks.
 
 ## Example
@@ -36,7 +38,7 @@ You can use these functions in your Python scripts or Jupyter notebooks.
 ```python
 import cv2
 import matplotlib.pyplot as plt
-from faceswap import swap_n_show, swap_n_show_same_img
+from faceswap import swap_n_show, swap_n_show_same_img, swap_face_single
 
 # Load images
 img1_fn = 'images/bramhi.jpg'
@@ -47,6 +49,9 @@ swap_n_show(img1_fn, img2_fn, app, swapper)
 
 # Swap faces within the same image
 swap_n_show_same_img(img1_fn, app, swapper)
+
+# Add face to an image
+swap_face_single(img1_fn, img2_fn, app, swapper)
 ```
 
 ## Acknowledgments
@@ -56,3 +61,13 @@ This project uses the InsightFace library and ONNX model for face analysis and s
 ## License
 
 [MIT License](https://github.com/KiranPranay/faceswap/blob/main/LICENSE)
+
+## Disclaimmer
+
+**This project is for educational purposes only. The face swapping techniques demonstrated here are intended to showcase the capabilities of the InsightFace library and ONNX model for educational and research purposes. The project should not be used for any malicious or illegal activities.**
+
+---
+
+<b> If you like my content or find anything useful, give it a :star: or support me by buying me a coffee :coffee::grinning: </b>
+
+<a href='https://ko-fi.com/R6R57A2ZT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
