@@ -2,6 +2,7 @@ import os
 import cv2
 import torch
 import gfpgan
+import gdown
 from PIL import Image
 from upscaler.RealESRGAN import RealESRGAN
 
@@ -25,29 +26,32 @@ supported_enhancers = {
 
 cv2_interpolations = ["LANCZOS4", "CUBIC", "NEAREST"]
 
-def get_available_enhancer_names():
-    available = []
-    for name, data in supported_enhancers.items():
-        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), data[0])
-        if os.path.exists(path):
-            available.append(name)
-    return available
+def model_check(model_url, model_path):
+    if not os.path.exists(model_path):
+        gdown.download(model_url, model_path, quiet=False)
 
 
 def load_face_enhancer_model(name='GFPGAN', device="cpu"):
-    assert name in get_available_enhancer_names() + cv2_interpolations, f"Face enhancer {name} unavailable."
     if name in supported_enhancers.keys():
         model_path, model_runner = supported_enhancers.get(name)
         model_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), model_path)
     if name == 'GFPGAN':
+        model_url = 'https://drive.google.com/uc?id=1QsJPgvZNwFsBktbeYENVsEq663UgBQRj'  
+        model_check(model_url, model_path)
         model = gfpgan.GFPGANer(model_path=model_path, upscale=1, device=device)
     elif name == 'REAL-ESRGAN 2x':
+        model_url = 'https://drive.google.com/uc?id=1BYFc4ttYGHmA-GZMmgXW9NdgPkXkgjtv'  
+        model_check(model_url, model_path)
         model = RealESRGAN(device, scale=2)
         model.load_weights(model_path, download=False)
     elif name == 'REAL-ESRGAN 4x':
+        model_url = 'https://drive.google.com/uc?id=1N4MNjfGhrz-CHq99WCp6NEfgzMIGxAE0'  
+        model_check(model_url, model_path)
         model = RealESRGAN(device, scale=4)
         model.load_weights(model_path, download=False)
     elif name == 'REAL-ESRGAN 8x':
+        model_url = 'https://drive.google.com/uc?id=14FtSjtgtl8iySVrrvFDX-HxCCkdbsoPh'  
+        model_check(model_url, model_path)
         model = RealESRGAN(device, scale=8)
         model.load_weights(model_path, download=False)
     elif name == 'LANCZOS4':
