@@ -2,6 +2,8 @@
 
 This project demonstrates face swapping using the InsightFace library and ONNX model. It allows you to swap faces between two images or even swap faces within the same image.
 
+You can use the [available image Enhancers](#available-enhancers) to bring your output to the next level.
+
 <p align="center">
 <img src="images/result.png" width="700px" alt="Face Swap Result">
 </p>
@@ -21,9 +23,15 @@ cd faceswap
 pip install requirements.txt
 ```
 
+3. Execution
+
+```python
+ python main.py
+```
+
 ## Usage
 
-### There are two main functions available for face swapping:
+### There are three main functions available for face swapping:
 
 - swap_n_show(img1_fn, img2_fn, app, swapper, plot_before=True, plot_after=True): This function swaps faces between two input images.
 
@@ -45,18 +53,28 @@ img1_fn = 'images/bramhi.jpg'
 img2_fn = 'images/modi.jpg'
 
 # Swap faces between two images
-swap_n_show(img1_fn, img2_fn, app, swapper)
+swap_n_show(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x')
 
 # Swap faces within the same image
-swap_n_show_same_img(img1_fn, app, swapper)
+swap_n_show_same_img(img1_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x')
 
 # Add face to an image
-swap_face_single(img1_fn, img2_fn, app, swapper)
+swap_face_single(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x')
 ```
+
+## Available Enhancers
+
+- GFPGAN
+- REAL-ESRGAN 2x
+- REAL-ESRGAN 4x
+- REAL-ESRGAN 8x
 
 ## Acknowledgments
 
 This project uses the InsightFace library and ONNX model for face analysis and swapping. Thanks to the developers of these libraries for their contributions.
+
+- [Insightface](https://github.com/deepinsight)
+- [Real-ESRGAN (ai-forever)](https://github.com/ai-forever/Real-ESRGAN)
 
 ## License
 
