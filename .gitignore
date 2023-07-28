@@ -1,2 +1,6 @@
 inswapper/inswapper_128.onnx
 __pycache__/*
+gfpgan/*
+gfpgan/weights/*
+outputs/*
+pretrained_models/*
