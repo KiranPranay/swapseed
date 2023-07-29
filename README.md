@@ -7,6 +7,9 @@ You can use the [available image Enhancers](#available-enhancers) to bring your 
 <p align="center">
 <img src="images/result.png" width="700px" alt="Face Swap Result">
 </p>
+<p align="center">
+<img src="images/swapseed.png" width="155" style="border-radius: 1em" alt="Face Swap Result">
+</p>
 
 ## Installation
 
