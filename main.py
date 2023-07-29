@@ -18,8 +18,8 @@ if not os.path.exists(model_output_path):
 swapper = insightface.model_zoo.get_model('inswapper/inswapper_128.onnx', download=False, download_zip=False)
 
 # Load images
-img1_fn = 'images/bramhi.jpg'
-img2_fn = 'images/modi.jpg'
+img1_fn = 'images/Anushka.jpg'
+img2_fn = 'images/keerthi.jpg'
 
 # Swap faces between two images
 # swap_n_show(img1_fn, img2_fn, app, swapper)

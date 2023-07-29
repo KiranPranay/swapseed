@@ -4,8 +4,21 @@ import matplotlib.pyplot as plt
 
 from face_enhancer import load_face_enhancer_model
 
+def validate_image(img):
+    if not os.path.exists(img):
+        raise ValueError(f'Image {img} does not exist')
+    # check if img is a valid image file 
+    if not os.path.isfile(img):
+        raise ValueError(f'Image {img} is not a valid image file')
+    # validate it to be jpg jpeg, png formats 
+    if not img.lower().endswith(('.jpg', '.jpeg', '.png')):
+        raise ValueError(f'Image {img} is not a valid image file')
+
 def swap_n_show(img1_fn, img2_fn, app, swapper,
                 plot_before=False, plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x'):
+    
+    validate_image(img1_fn)
+    validate_image(img2_fn)
     
     img1 = cv2.imread(img1_fn)
     img2 = cv2.imread(img2_fn)
@@ -42,6 +55,8 @@ def swap_n_show_same_img(img1_fn,
                          app, swapper,
                          plot_before=False,
                          plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x'):
+    
+    validate_image(img1_fn)
     img1 = cv2.imread(img1_fn)
     
     if plot_before:
@@ -68,6 +83,9 @@ def swap_n_show_same_img(img1_fn,
 
 def swap_face_single(img1_fn, img2_fn, app, swapper,
              plot_before=False, plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x'):
+    
+    validate_image(img1_fn)
+    validate_image(img2_fn)
     
     img1 = cv2.imread(img1_fn)
     img2 = cv2.imread(img2_fn)
