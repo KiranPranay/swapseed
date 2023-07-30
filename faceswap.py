@@ -14,8 +14,12 @@ def validate_image(img):
     if not img.lower().endswith(('.jpg', '.jpeg', '.png')):
         raise ValueError(f'Image {img} is not a valid image file')
 
+def cpu_warning(device):
+    if device == "cpu":
+        print("Using CPU for face enhancer. If you have a GPU, you can set device='cuda' to speed up the process. You can also set enhance=False to skip the enhancement.")
+
 def swap_n_show(img1_fn, img2_fn, app, swapper,
-                plot_before=False, plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x'):
+                plot_before=False, plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x',device="cpu"):
     
     validate_image(img1_fn)
     validate_image(img2_fn)
@@ -41,7 +45,8 @@ def swap_n_show(img1_fn, img2_fn, app, swapper,
         img1_ = swapper.get(img1_, face1, face2, paste_back=True)
         img2_ = swapper.get(img2_, face2, face1, paste_back=True)
         if enhance:
-            model, model_runner = load_face_enhancer_model(enhancer)
+            cpu_warning(device)
+            model, model_runner = load_face_enhancer_model(enhancer,device)
             img1_ = model_runner(img1_, model)
             img2_ = model_runner(img2_, model)
         fig, axs = plt.subplots(1, 2, figsize=(10, 5))
@@ -55,7 +60,7 @@ def swap_n_show(img1_fn, img2_fn, app, swapper,
 def swap_n_show_same_img(img1_fn,
                          app, swapper,
                          plot_before=False,
-                         plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x'):
+                         plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x',device="cpu"):
     
     validate_image(img1_fn)
     img1 = cv2.imread(img1_fn)
@@ -75,7 +80,8 @@ def swap_n_show_same_img(img1_fn,
         img1_ = swapper.get(img1_, face1, face2, paste_back=True)
         img1_ = swapper.get(img1_, face2, face1, paste_back=True)
         if enhance:
-            model, model_runner = load_face_enhancer_model(enhancer)
+            cpu_warning(device)
+            model, model_runner = load_face_enhancer_model(enhancer,device)
             img1_ = model_runner(img1_, model)
         fig, ax = plt.subplots(1, 1, figsize=(10, 5))
         ax.imshow(img1_[:,:,::-1])
@@ -84,7 +90,7 @@ def swap_n_show_same_img(img1_fn,
     return img1_
 
 def swap_face_single(img1_fn, img2_fn, app, swapper,
-             plot_before=False, plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x'):
+             plot_before=False, plot_after=True, enhance=False, enhancer='REAL-ESRGAN 2x',device="cpu"):
     
     validate_image(img1_fn)
     validate_image(img2_fn)
@@ -108,7 +114,8 @@ def swap_face_single(img1_fn, img2_fn, app, swapper,
     if plot_after:
         img1_ = swapper.get(img1_, face1, face2, paste_back=True)
         if enhance:
-            model, model_runner = load_face_enhancer_model(enhancer)
+            cpu_warning(device)
+            model, model_runner = load_face_enhancer_model(enhancer,device)
             img1_ = model_runner(img1_, model)
         # Save the image
         output_fn = os.path.join('outputs', os.path.basename(img1_fn))

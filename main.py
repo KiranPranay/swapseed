@@ -28,4 +28,4 @@ img2_fn = 'images/keerthi.jpg'
 # swap_n_show_same_img(img1_fn, app, swapper)
 
 # Add face to an image
-swap_face_single(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x')
+swap_face_single(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x',device="cpu")

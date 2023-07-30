@@ -72,6 +72,11 @@ swap_face_single(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ES
 - REAL-ESRGAN 4x
 - REAL-ESRGAN 8x
 
+## GPU Support
+
+- cuda
+  **_(set 'device=cuda' to run with gpu)_**
+
 ## Acknowledgments
 
 This project uses the InsightFace library and ONNX model for face analysis and swapping. Thanks to the developers of these libraries for their contributions.
