@@ -16,8 +16,8 @@ You can use the [available image Enhancers](#available-enhancers) to bring your 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/KiranPranay/faceswap
-cd faceswap
+git clone https://github.com/KiranPranay/swapseed
+cd swapseed
 ```
 
 2. Install the required dependencies:

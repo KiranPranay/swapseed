@@ -37,12 +37,13 @@ def swap_n_show(img1_fn, img2_fn, app, swapper,
     
     img1_ = img1.copy()
     img2_ = img2.copy()
-    if plot_after and enhance:
-        model, model_runner = load_face_enhancer_model(enhancer)
-        img1_ = model_runner(img1_, model)
-        img2_ = model_runner(img2_, model)
+    if plot_after:
         img1_ = swapper.get(img1_, face1, face2, paste_back=True)
         img2_ = swapper.get(img2_, face2, face1, paste_back=True)
+        if enhance:
+            model, model_runner = load_face_enhancer_model(enhancer)
+            img1_ = model_runner(img1_, model)
+            img2_ = model_runner(img2_, model)
         fig, axs = plt.subplots(1, 2, figsize=(10, 5))
         axs[0].imshow(img1_[:,:,::-1])
         axs[0].axis('off')
@@ -70,11 +71,12 @@ def swap_n_show_same_img(img1_fn,
     face1, face2 = faces[0], faces[1]
     
     img1_ = img1.copy()
-    if plot_after and enhance:
-        model, model_runner = load_face_enhancer_model(enhancer)
-        img1_ = model_runner(img1_, model)
+    if plot_after:
         img1_ = swapper.get(img1_, face1, face2, paste_back=True)
         img1_ = swapper.get(img1_, face2, face1, paste_back=True)
+        if enhance:
+            model, model_runner = load_face_enhancer_model(enhancer)
+            img1_ = model_runner(img1_, model)
         fig, ax = plt.subplots(1, 1, figsize=(10, 5))
         ax.imshow(img1_[:,:,::-1])
         ax.axis('off')
