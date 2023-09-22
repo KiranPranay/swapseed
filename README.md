@@ -42,6 +42,8 @@ pip install requirements.txt
 
 - swap_face_single(img1_fn, img2_fn, app, swapper): This function adds face from the source image to the target image and saves in output/ folder.
 
+- fine_face_swap(img1_fn, img2_fn, app, swapper): This function has ability to finely select faces from image with multiple faces.
+
 You can use these functions in your Python scripts or Jupyter notebooks.
 
 ## Example
@@ -63,6 +65,9 @@ swap_n_show_same_img(img1_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 
 
 # Add face to an image
 swap_face_single(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x')
+
+# Swap faces in images with multiple faces
+fine_face_swap(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x')
 ```
 
 ## Available Enhancers

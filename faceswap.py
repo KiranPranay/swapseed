@@ -122,3 +122,93 @@ def swap_face_single(img1_fn, img2_fn, app, swapper,
         cv2.imwrite(output_fn, img1_)
         print(f'Image saved to {output_fn}')
     return img1_
+def fine_face_swap(img1_fn, img2_fn, app, swapper,enhance=False, enhancer='REAL-ESRGAN 2x',device="cpu"):
+    img1 = cv2.imread(img1_fn)
+    facesimg1 = app.get(img1)
+    total_faces_img1 = len(facesimg1)
+    if total_faces_img1 > 1:
+        print(f'{total_faces_img1} faces detected')
+        fig, axs = plt.subplots(1, total_faces_img1, figsize=(12, 5))
+        for i, face in enumerate(facesimg1):
+            bbox = face['bbox']
+            bbox = [int(b) for b in bbox]
+            axs[i].imshow(img1[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1])
+            axs[i].axis('off')
+            axs[i].set_title(f'Face {i+1}')
+        plt.suptitle('Select a face to swap')
+        plt.show()   
+    else:
+        print(f'{total_faces_img1} face detected')
+        bbox = facesimg1[0]['bbox']
+        bbox = [int(b) for b in bbox]
+        plt.imshow(img1[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1])
+        plt.axis('off')
+        plt.title('Face 1')
+        plt.show()
+        
+    # Select a face from img1
+    face_idximg1 = int(input(f'Enter face number (1-{total_faces_img1}): '))
+    if face_idximg1 < 1 or face_idximg1 > total_faces_img1:
+        raise ValueError(f'Invalid face number {face_idximg1}')
+    face = facesimg1[face_idximg1-1]
+    bbox = face['bbox']
+    bbox = [int(b) for b in bbox]
+    face_img = img1[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1]
+    plt.imshow(face_img)
+    plt.axis('off')
+    plt.title(f'Face {face_idximg1}')
+    plt.suptitle('Selected face')
+    plt.show()
+    
+    img2 = cv2.imread(img2_fn)
+    facesimg2 = app.get(img2)
+    total_faces_img2 = len(facesimg2)
+    if total_faces_img2 > 1:
+        print(f'{total_faces_img2} faces detected')
+        fig, axs = plt.subplots(1, total_faces_img2, figsize=(12, 5))
+        for i, face in enumerate(facesimg2):
+            bbox = face['bbox']
+            bbox = [int(b) for b in bbox]
+            axs[i].imshow(img2[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1])
+            axs[i].axis('off')
+            axs[i].set_title(f'Face {i+1}')
+        plt.suptitle('Select a face to swap')
+        plt.show()
+    else:
+        print(f'{total_faces_img2} face detected')
+        bbox = facesimg2[0]['bbox']
+        bbox = [int(b) for b in bbox]
+        plt.imshow(img2[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1])
+        plt.axis('off')
+        plt.title('Face 1')
+        plt.show()
+        
+    # Select a face from img2
+    face_idximg2 = int(input(f'Enter face number (1-{total_faces_img2}): '))
+    if face_idximg2 < 1 or face_idximg2 > total_faces_img2:
+        raise ValueError(f'Invalid face number {face_idximg2}')
+    face = facesimg2[face_idximg2-1]
+    bbox = face['bbox']
+    bbox = [int(b) for b in bbox]
+    face_img = img2[bbox[1]:bbox[3],bbox[0]:bbox[2],::-1]
+    plt.imshow(face_img)
+    plt.axis('off')
+    plt.title(f'Face {face_idximg2}')
+    plt.suptitle('Selected face')
+    plt.show()
+    
+    # source face
+    face1 = app.get(img1)[face_idximg1-1]
+    face2 = app.get(img2)[face_idximg2-1]
+    
+    img1_ = img1.copy()
+    img1_ = swapper.get(img1_, face1, face2, paste_back=True)
+    if enhance:
+        cpu_warning(device)
+        model, model_runner = load_face_enhancer_model(enhancer,device)
+        img1_ = model_runner(img1_, model)
+    # Save the image
+    output_fn = os.path.join('outputs', os.path.basename(img1_fn))
+    cv2.imwrite(output_fn, img1_)
+    print(f'Image saved to {output_fn}')
+    return img1_

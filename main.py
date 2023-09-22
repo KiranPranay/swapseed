@@ -4,7 +4,7 @@ import gdown
 import insightface
 from insightface.app import FaceAnalysis
 from insightface.data import get_image as ins_get_image
-from faceswap import swap_n_show, swap_n_show_same_img, swap_face_single
+from faceswap import swap_n_show, swap_n_show_same_img, swap_face_single,fine_face_swap
 
 app = FaceAnalysis(name='buffalo_l')
 app.prepare(ctx_id=0, det_size=(640, 640))
@@ -29,3 +29,6 @@ img2_fn = 'images/keerthi.jpg'
 
 # Add face to an image
 swap_face_single(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x',device="cpu")
+
+# Fine face swapper
+fine_face_swap(img1_fn, img2_fn, app, swapper, enhance=True, enhancer='REAL-ESRGAN 2x',device="cpu")
