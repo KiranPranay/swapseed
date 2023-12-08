@@ -23,7 +23,7 @@ cd swapseed
 2. Install the required dependencies:
 
 ```pip
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 3. Execution
